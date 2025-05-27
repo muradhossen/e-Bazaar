@@ -1,0 +1,6 @@
+@e_Bazaar.API_HostAddress = http://localhost:5093
+
+GET {{e_Bazaar.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
