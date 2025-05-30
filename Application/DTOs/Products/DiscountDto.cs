@@ -1,0 +1,15 @@
+﻿using System;
+
+namespace Application.DTOs.Products
+{
+    public class DiscountDto
+    {
+        public int Id { get; set; }
+        public int Percentage { get; set; }
+        public double Amount { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
+        public int ProductId { get; set; }
+    }
+}
