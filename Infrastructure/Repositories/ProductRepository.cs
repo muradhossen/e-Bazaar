@@ -25,7 +25,8 @@ public class ProductRepository : IProductRepository
 
     public async Task<IQueryable<Product>> GetAllAsync(PageParam pageParam)
     {
-        var query =  _dbContext.Products.AsQueryable().AsNoTracking();
+        var query =  _dbContext.Products.AsQueryable()
+            .Include(c => c.Discount).AsNoTracking();
 
         if (!string.IsNullOrWhiteSpace(pageParam.SearchKey))
         {
