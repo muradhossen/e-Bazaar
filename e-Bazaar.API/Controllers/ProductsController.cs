@@ -17,9 +17,9 @@ namespace e_Bazaar.API.Controllers
             this._productService = productService;
         }
         [HttpGet]
-        public async Task<ActionResult<PagedList<ProductDto>>> GetProducts([FromQuery] PageParam pageParam)
-        { 
-            return await _productService.GetAllAsync(pageParam);
+        public async Task<IActionResult> GetProducts([FromQuery] PageParam pageParam)
+        {
+            return Ok(await _productService.GetAllAsync(pageParam));
         }
 
         [HttpPost]

@@ -1,8 +1,5 @@
 using Infrastructure;
 using Application;
-using Application.ServiceInterfaces;
-using Microsoft.AspNetCore.Mvc;
-using Application.Common.Pagination;
 
 var builder = WebApplication.CreateBuilder(args);
  
@@ -14,6 +11,16 @@ builder.Services.AddPersistence(builder.Configuration)
     .AddInfrastructure()
     .AddApplication();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
  
 if (app.Environment.IsDevelopment())
@@ -23,10 +30,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 
- 
 
- app.MapControllers();
+app.MapControllers();
 
 app.Run();
 

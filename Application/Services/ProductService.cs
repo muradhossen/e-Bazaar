@@ -22,6 +22,7 @@ namespace Application.Services
         }
         public Task<bool> AddAsync(ProductCreateDto product)
         {
+
             return _repository.AddAsync(product.ToEntity());
         }
 

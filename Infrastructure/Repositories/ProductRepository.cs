@@ -18,8 +18,8 @@ public class ProductRepository : IProductRepository
         this._dbContext = dbContext;
     }
     public async Task<bool> AddAsync(Product product)
-    {
-        await _dbContext.Products.AddAsync(product);
+    { 
+            await _dbContext.Products.AddAsync(product);
        return await _dbContext.SaveChangesAsync() > 0;
     }
 
