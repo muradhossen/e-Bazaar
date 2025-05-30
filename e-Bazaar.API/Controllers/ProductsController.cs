@@ -1,7 +1,7 @@
 ﻿using Application.Common.Pagination;
 using Application.DTOs.Products;
 using Application.ServiceInterfaces;
-using Microsoft.AspNetCore.Http;
+using Application.Extentions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_Bazaar.API.Controllers
@@ -19,7 +19,12 @@ namespace e_Bazaar.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts([FromQuery] PageParam pageParam)
         {
-            return Ok(await _productService.GetAllAsync(pageParam));
+
+            var products = await _productService.GetAllAsync(pageParam);
+
+            Response.AddPaginationHeader(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPage);
+
+            return Ok(products);
         }
 
         [HttpPost]
