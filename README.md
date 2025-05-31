@@ -3,6 +3,7 @@
 An assignment project.
 Requirment doc [here](https://www.figma.com/design/31nj9T8Ht1KT2PVzRG8rV5/.NET-Developer?node-id=0-1&p=f&t=hzi7uN9fbNZ3uooU-0)
 
+Table : https://docs.google.com/spreadsheets/d/1bY5D1g0veTDptdiZRVdhR68th2ynX5lzvaGJRfFu6YQ/edit?usp=sharing
 
 Add product : 
 ![image](https://github.com/user-attachments/assets/fece0b15-885e-4f81-badf-4e3c82cb9cb1)
