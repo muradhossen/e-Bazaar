@@ -1,6 +1,8 @@
 using Infrastructure;
 using Application;
 using Application.Middlewares;
+using Infrastructure.Persistances;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
  
@@ -21,6 +23,9 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+var context = builder.Services.BuildServiceProvider().GetRequiredService<ApplicationDbContext>();
+await context.Database.MigrateAsync();
 
 var app = builder.Build();
 

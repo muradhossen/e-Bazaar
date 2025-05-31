@@ -24,6 +24,8 @@ namespace e_Bazaar.API.Controllers
 
             Response.AddPaginationHeader(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPage);
 
+
+
             return Ok(products);
         }
 

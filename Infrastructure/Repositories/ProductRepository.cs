@@ -45,6 +45,7 @@ public class ProductRepository : IProductRepository
             Name = product.Name,
             Slug = product.Slug,
             Price = product.Price, 
+            ImageUrl = product.ImageUrl,
             Discount = product.Discount != null &&
                    product.Discount.StartDate <= today &&
                    product.Discount.EndDate >= today
