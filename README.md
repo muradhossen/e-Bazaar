@@ -1,5 +1,12 @@
 # Ebazar
 
+1. Clone the repository.
+2. Run docker command to run the postgreSQL database ` docker run --name postgres-dev -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123245 -e POSTGRES_DB=eBazaarDB -p 5432:5432 -d postgres`
+3. Run both Client and Server application.
+4. Client will run on (https://localhost:7233/) and server will run on (http://localhost:5224/)
+5. For swagger API document browse (http://localhost:5224/swagger/index.html)   
+
+
 An assignment project.
 Requirment doc [here](https://www.figma.com/design/31nj9T8Ht1KT2PVzRG8rV5/.NET-Developer?node-id=0-1&p=f&t=hzi7uN9fbNZ3uooU-0)
 
