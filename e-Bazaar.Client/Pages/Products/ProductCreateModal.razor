@@ -12,12 +12,12 @@
     
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
+            <div class="modal-header  text-white">
                 <h5 class="modal-title" id="productModalLabel">
                     <i class="fas fa-plus-circle me-2"></i>Add New Product
                 </h5>
                 <button type="button" 
-                        class="btn-close btn-close-white" 
+                        class="btn-close btn-close-black" 
                         aria-label="Close"
                         @onclick="CloseModal">
                 </button>
@@ -89,15 +89,15 @@
                     </div>
                     
                     <div class="modal-footer mt-4">
-                        <button type="button" 
-                                class="btn btn-secondary" 
-                                @onclick="CloseModal">
-                            Cancel
-                        </button>
-                        <button type="submit" 
-                                class="btn btn-primary">
-                            <i class="fas fa-save me-1"></i>Add Product
-                        </button>
+                     
+                        <div class="d-grid gap-2 col mx-auto mt-2">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i>Add Product
+                            </button>
+                            
+                        </div>
+                       
                     </div>
                 </EditForm>
             </div>
