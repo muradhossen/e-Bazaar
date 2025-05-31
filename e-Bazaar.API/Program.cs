@@ -1,5 +1,6 @@
 using Infrastructure;
 using Application;
+using Application.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
  
@@ -22,7 +23,9 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
- 
+
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
