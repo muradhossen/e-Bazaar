@@ -1,4 +1,4 @@
-# Ebazar
+# Ebazaar
 
 1. Clone the repository.
 2. Run docker command to run the postgreSQL database ` docker run --name postgres-dev -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123245 -e POSTGRES_DB=eBazaarDB -p 5432:5432 -d postgres`
