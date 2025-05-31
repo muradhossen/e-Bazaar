@@ -6,27 +6,19 @@
 @using Microsoft.AspNetCore.Components
 @using System.Text.Json
 @using e_Bazaar.Client.Common
+@using e_Bazaar.Client.Pages.Carts
 @using e_Bazaar.Client.Pages.Products
 @using e_Bazaar.Client.Services
 @using e_Bazaar.Client.ViewModels
 
 
 <Offcanvas @ref="offcanvas"
-title="Shoping Cart">
+           title="Shoping Cart">
 
     <BodyTemplate>
         @foreach (var item in cart.Items)
         {
-            <div class="d-flex align-items-start justify-content-between border-bottom py-3">
-                <div class="d-flex">
-                    <img src="@item.Key.ImageUrl" alt="@item.Key.Name" class="img-thumbnail me-3" style="width: 60px; height: 60px; object-fit: cover;" />
-                    <div>
-                        <div class="fw-semibold">@item.Key.Name</div>
-                        <div class="text-muted">Qty: @item.Quantity</div>
-                    </div>
-                </div>
-                <div class="fw-semibold text-nowrap">@item.GetTotalPrice().ToString("F2")</div>
-            </div>
+            <CartProduct Container="@item"></CartProduct>
         }
     </BodyTemplate>
 
@@ -34,10 +26,10 @@ title="Shoping Cart">
         <div class="d-flex justify-content-between align-items-center w-100 px-2">
             <div style="color:#777777">Sub total </div>
             <div>@cart.TotalPrice.ToString("F2")</div>
-      </div>
+        </div>
     </FooterTemplate>
 
-</Offcanvas> 
+</Offcanvas>
 
 <div class="container-fluid p-4">
     <!-- Header -->
@@ -139,30 +131,12 @@ title="Shoping Cart">
     <!-- Product Grid -->
     <div class="row">
         @foreach (var product in Products)
-        {
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card h-100 product-card">
-                    <div class="card-body text-center">
-                        <img src="@product.ImageUrl" alt="@product.Name" class="img-fluid mb-3" style="height: 150px; object-fit: contain;">
-                        <h6 class="card-title">@product.Name</h6>
-                        <div class="d-flex justify-content-center align-items-center mb-2">
-                            <span class="h5 mb-0 text-primary fw-bold">@product.Price</span>
-                            @if (product.OriginalPrice.HasValue && product.HasDiscount)
-                            {
-                                <span class="text-muted text-decoration-line-through ms-2">@product.OriginalPrice</span>
-                            }
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <button class="btn btn-outline-secondary btn-sm me-2" @onclick="() => DecreaseQuantity(product)">-</button>
-                            <span class="mx-2 fw-bold">@GetProductQuantity(product.Id)</span>
-                            <button class="btn btn-outline-secondary btn-sm me-3" @onclick="() => AddToCart(product)">+</button>
-                            <button class="btn btn-outline-primary btn-sm" @onclick="() => AddToCart(product)">
-                                Add to cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        { 
+            <ProductCard Product="@product"
+                         DecreaseQuantity="DecreaseQuantity"
+                         AddToCart="AddToCart"></ProductCard>
+
+
         }
     </div>
 
@@ -170,7 +144,7 @@ title="Shoping Cart">
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div class="d-flex align-items-center">
             <button class="btn btn-link text-decoration-none p-0 me-3 @(CurrentPage == 1 ? "disabled" : "")"
-            @onclick="PreviousPage" disabled="@(CurrentPage == 1)">
+                    @onclick="PreviousPage" disabled="@(CurrentPage == 1)">
                 <i class="bi bi-chevron-left me-1"></i>Prev
             </button>
 
@@ -205,14 +179,14 @@ title="Shoping Cart">
             </nav>
 
             <button class="btn btn-link text-decoration-none p-0 ms-3 @(CurrentPage == TotalPages ? "disabled" : "")"
-            @onclick="NextPage" disabled="@(CurrentPage == TotalPages)">
+                    @onclick="NextPage" disabled="@(CurrentPage == TotalPages)">
                 Next <i class="bi bi-chevron-right ms-1"></i>
             </button>
         </div>
 
         <div class="dropdown">
             <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-            id="itemsPerPageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    id="itemsPerPageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 @ItemsPerPage per page
             </button>
             <ul class="dropdown-menu" aria-labelledby="itemsPerPageDropdown">
@@ -228,87 +202,87 @@ title="Shoping Cart">
 
 <!-- Product Create Modal -->
 <ProductCreateModal IsVisible="showModal"
-IsVisibleChanged="OnModalVisibilityChanged"
-OnProductCreated="OnProductCreated" />
+                    IsVisibleChanged="OnModalVisibilityChanged"
+                    OnProductCreated="OnProductCreated" />
 
 <style>
     .dashboard-card {
-    border-radius: 20px !important;
-    border: none;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(135deg, #4285f4 0%, #3b78e7 100%);
+        border-radius: 20px !important;
+        border: none;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, #4285f4 0%, #3b78e7 100%);
     }
 
     .dashboard-icon {
-    width: 50px;
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
     }
 
     .product-card {
-    transition: transform 0.2s ease-in-out;
-    border: 1px solid #e0e0e0;
+        transition: transform 0.2s ease-in-out;
+        border: 1px solid #e0e0e0;
     }
 
-    .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
     .bg-primary {
-    background-color: #4285f4 !important;
+        background-color: #4285f4 !important;
     }
 
     .text-primary {
-    color: #4285f4 !important;
+        color: #4285f4 !important;
     }
 
     .btn-primary {
-    background-color: #4285f4;
-    border-color: #4285f4;
+        background-color: #4285f4;
+        border-color: #4285f4;
     }
 
     .btn-outline-secondary {
-    color: #6c757d;
-    border-color: #6c757d;
+        color: #6c757d;
+        border-color: #6c757d;
     }
 
-    .btn-outline-secondary:hover {
-    background-color: #6c757d;
-    border-color: #6c757d;
-    color: white;
-    }
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: white;
+        }
 
     .pagination .page-link {
-    color: #6c757d;
-    border-color: #dee2e6;
+        color: #6c757d;
+        border-color: #dee2e6;
     }
 
     .pagination .page-item.active .page-link {
-    background-color: #4285f4;
-    border-color: #4285f4;
-    color: white;
+        background-color: #4285f4;
+        border-color: #4285f4;
+        color: white;
     }
 
     .pagination .page-link:hover {
-    color: #4285f4;
-    background-color: #e7f1ff;
-    border-color: #dee2e6;
+        color: #4285f4;
+        background-color: #e7f1ff;
+        border-color: #dee2e6;
     }
 
     .dropdown-item.active {
-    background-color: #4285f4;
-    color: white;
+        background-color: #4285f4;
+        color: white;
     }
 
     .btn-link.disabled {
-    color: #6c757d;
-    pointer-events: none;
+        color: #6c757d;
+        pointer-events: none;
     }
 </style>
 
